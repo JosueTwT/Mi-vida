@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 50px;
+            color: #8ed2f7;
+            text-shadow: 0 0 10px #8ed2f7, 0 0 20px #8ed2f7;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            background-color: #8ed2f7;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .particles {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #8ed2f7;
+            border-radius: 50%;
+            animation: rise var(--duration) ease-out forwards;
+            box-shadow: 0 0 15px 5px #8ed2f7;
+            filter: blur(1px);
+        }
+
+        @keyframes rise {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0.2);
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20vh) scale(0.5);
+            }
+        }
+
+        .images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .image {
+            position: absolute;
+            width: 50px;
+            animation: fadeInOut var(--duration) ease-in-out forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .message, .sub-message {
+            font-size: 40px;
+            color: white;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: 3;
+        }
+
+        .sub-message {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="title">Oye mi amor</h1>
+    <button id="start">Dime</button>
+    
+    <div class="particles" id="particles"></div>
+    <div class="images" id="images"></div>
+
+    <h1 class="message" id="message">¿Quieres ser mi San Valentín?</h1>
+    <p class="sub-message" id="sub-message">
+        Eres el amor de mi vida, me alegro poder pasar otro San Valentín a tu lado.  
+        Me haces muy feliz, eres el motivo por el que sonrío,  
+        y quiero seguir sonriendo a tu lado y por ti el resto de mi vida.
+    </p>
+
+    <script>
+        function createParticle() {
+            const particles = document.getElementById("particles");
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            
+            particle.style.left = `${Math.random() * 100}vw`;
+            
+            const duration = 3 + Math.random() * 2;
+            particle.style.setProperty('--duration', `${duration}s`);
+            
+            particles.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        function createImage() {
+            const images = document.getElementById("images");
+            const image = document.createElement("img");
+            image.src = "https://i.imgur.com/OZJ0BLn.png";
+            image.classList.add("image");
+            
+            // Posición aleatoria
+            image.style.top = `${Math.random() * 80}vh`;
+            image.style.left = `${Math.random() * 90}vw`;
+            
+            // Duración aleatoria
+            const duration = 4 + Math.random() * 2;
+            image.style.setProperty('--duration', `${duration}s`);
+            
+            images.appendChild(image);
+            
+            setTimeout(() => {
+                image.remove();
+            }, duration * 1000);
+        }
+
+        function startParticleSystem() {
+            // Crear partículas iniciales
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createParticle, i * 100);
+            }
+            
+            // Continuar creando partículas
+            setInterval(createParticle, 200);
+        }
+
+        function startImageSystem() {
+            // Crear imágenes iniciales
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createImage, i * 200);
+            }
+            
+            // Continuar creando imágenes
+            setInterval(createImage, 800); // Crea una nueva imagen cada 800ms
+        }
+
+        document.getElementById("start").addEventListener("click", function () {
+            document.getElementById("title").classList.add("hidden");
+            document.getElementById("start").classList.add("hidden");
+
+            startParticleSystem();
+            startImageSystem();
+
+            // Mostrar mensajes después de un tiempo
+            setTimeout(() => {
+                document.getElementById("message").style.opacity = "1";
+                document.getElementById("sub-message").style.opacity = "1";
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html>
