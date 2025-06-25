@@ -1,222 +1,173 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Valentín</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin: 0;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 50px;
-            color: #8ed2f7;
-            text-shadow: 0 0 10px #8ed2f7, 0 0 20px #8ed2f7;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        button {
-            background-color: #8ed2f7;
-            color: black;
-            border: none;
-            padding: 15px 30px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 10px;
-            margin-top: 20px;
-            transition: transform 0.2s;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-        }
-
-        .particles {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #8ed2f7;
-            border-radius: 50%;
-            animation: rise var(--duration) ease-out forwards;
-            box-shadow: 0 0 15px 5px #8ed2f7;
-            filter: blur(1px);
-        }
-
-        @keyframes rise {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) scale(0.2);
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20vh) scale(0.5);
-            }
-        }
-
-        .images {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .image {
-            position: absolute;
-            width: 50px;
-            animation: fadeInOut var(--duration) ease-in-out forwards;
-        }
-
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-        }
-
-        .message, .sub-message {
-            font-size: 40px;
-            color: white;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            z-index: 3;
-        }
-
-        .sub-message {
-            font-size: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta de Amor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: radial-gradient(circle at top left, #ffe6f0, #fff0f5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .decoracion-flotante {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background-size: cover;
+      animation: flotar 6s linear infinite;
+      opacity: 0.9;
+      z-index: 0;
+    }
+    .decoracion-flotante.heart {
+      background-image: url('https://emoji.gg/assets/emoji/8414-hearts.gif');
+    }
+    .decoracion-flotante.star {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Full_Star_Yellow.svg/1024px-Full_Star_Yellow.svg.png');
+    }
+    .decoracion-flotante.flower {
+      background-image: url('https://emojicdn.elk.sh/%F0%9F%8C%B8');
+    }
+    @keyframes flotar {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.7); opacity: 0; }
+    }
+    .sobre-contenedor {
+      position: relative;
+      z-index: 2;
+      width: 240px;
+      height: 190px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      animation: latido 2s infinite;
+    }
+    .sobre {
+      width: 100%;
+      height: 100%;
+      background-image: url('https://png.pngtree.com/png-clipart/20230202/ourmid/pngtree-simple-love-envelopes-png-image_6583208.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 10px;
+      position: relative;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      z-index: 1;
+    }
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .boton-abrir {
+      background: linear-gradient(45deg, #ff5c8a, #ff9aa2);
+      border: none;
+      color: white;
+      font-size: 1.4rem;
+      padding: 14px 26px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff69b4;
+      transition: background 0.3s ease;
+      z-index: 3;
+      position: relative;
+    }
+    .boton-abrir:hover {
+      background: linear-gradient(45deg, #ff9aa2, #ffc0cb);
+    }
+    .boton-abrir:active {
+      transform: scale(0.98);
+    }
+    .carta {
+      display: none;
+      position: absolute;
+      top: 3%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%;
+      height: 90%;
+      background: linear-gradient(180deg, #fffafc, #ffeef8);
+      border-radius: 30px;
+      padding: 35px 25px;
+      overflow-y: auto;
+      box-shadow: 0 0 60px rgba(255, 105, 180, 0.5);
+      z-index: 5;
+      animation: aparecer 1s ease;
+      color: #333;
+      border: 5px double #ffb6c1;
+      backdrop-filter: blur(6px);
+    }
+    .carta.visible {
+      display: block;
+    }
+    .carta p {
+      margin-bottom: 1.2em;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      text-align: justify;
+    }
+    @keyframes aparecer {
+      from {opacity: 0; transform: translate(-50%, -20%);}
+      to {opacity: 1; transform: translate(-50%, 0);}
+    }
+  </style>
 </head>
 <body>
+  <div class="sobre-contenedor">
+    <div class="sobre" id="sobre"></div>
+    <button class="boton-abrir" id="btnAbrir">❤ Abrir</button>
+  </div>
 
-    <h1 id="title">Oye mi amor</h1>
-    <button id="start">Dime</button>
-    
-    <div class="particles" id="particles"></div>
-    <div class="images" id="images"></div>
+  <div class="carta" id="carta">
+    <p>Estoy feliz de que estés en mi vida, aunque estemos lejos, aunque no pueda abrazarte cada vez que quiero, aunque no pueda tenerte frente a mí todos los días… aún así, eres una de las mejores cosas que me han pasado. Te has convertido en alguien muy importante para mí, alguien que llegó para quedarse, para darme razones de sonreír incluso a la distancia. Te has vuelto mi felicidad, mi lugar seguro, mi pensamiento bonito cada día.</p>
+    <p>Me has sacado sonrisas que nadie más pudo sacarme, me has hecho sentir cosas que no sabía que se podían sentir a través de una pantalla, con palabras, con mensajes, con llamadas. Y aunque a veces duela no poder tenerte cerca, eso no cambia lo mucho que significas para mí.</p>
+    <p>Eres, y sé que serás, alguien muy especial para mí. Me hace demasiado feliz dormir con un “buenas noches” tuyo, sabiendo que piensas en mí antes de cerrar los ojos, y despertar con un “buenos días” tuyo que me hace sentir acompañado aunque estemos a kilómetros.</p>
+    <p>No espero el día solo por rutina, lo espero por ti. Porque aunque no pueda verte en persona, espero poder hablar contigo, escucharte, saber cómo estás. Y sueño con el día en que pueda verte frente a frente, abrazarte fuerte, tomarte de la mano, mirarte a los ojos sin una pantalla de por medio, y decirte todo esto en voz alta. Poder besarte y decirte cuánto te amo, cuánto te aprecio, lo linda que eres en todo sentido: por fuera, por dentro, por cada parte de ti.</p>
+    <p>Tienes algo que no cualquiera tiene. No solo me encantas físicamente, también me enamora tu forma de ser, lo que piensas, lo que sientes, lo que eres. Todo en ti me transmite ternura, calma, cariño. Me das una paz que no se explica, me das ganas de luchar por este amor, por este “nosotros” que tenemos, aunque haya distancia.</p>
+    <p>Eres demasiado tierna, demasiado linda, demasiado tú, y eso me encanta. Te amo mucho, mi amor. Nunca lo olvides. Porque yo tampoco voy a olvidar lo mucho que te amo, y aunque ahora estemos lejos, sé que un día vamos a estar juntos, y todo esto habrá valido la pena. Porque tú vales la pena.</p>
+  </div>
 
-    <h1 class="message" id="message">¿Quieres ser mi San Valentín?</h1>
-    <p class="sub-message" id="sub-message">
-        Eres el amor de mi vida, me alegro poder pasar otro San Valentín a tu lado.  
-        Me haces muy feliz, eres el motivo por el que sonrío,  
-        y quiero seguir sonriendo a tu lado y por ti el resto de mi vida.
-    </p>
+  <script>
+    const sobre = document.getElementById("sobre");
+    const carta = document.getElementById("carta");
+    const btnAbrir = document.getElementById("btnAbrir");
+    let contador = 0;
 
-    <script>
-        function createParticle() {
-            const particles = document.getElementById("particles");
-            const particle = document.createElement("div");
-            particle.classList.add("particle");
-            
-            particle.style.left = `${Math.random() * 100}vw`;
-            
-            const duration = 3 + Math.random() * 2;
-            particle.style.setProperty('--duration', `${duration}s`);
-            
-            particles.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, duration * 1000);
-        }
+    btnAbrir.addEventListener("click", () => {
+      contador++;
+      let scale = 1 + contador * 0.05;
+      sobre.style.transform = `scale(${scale})`;
+      sobre.style.boxShadow = `0 0 ${10 + contador * 5}px #ff69b4`;
 
-        function createImage() {
-            const images = document.getElementById("images");
-            const image = document.createElement("img");
-            image.src = "https://i.imgur.com/OZJ0BLn.png";
-            image.classList.add("image");
-            
-            // Posición aleatoria
-            image.style.top = `${Math.random() * 80}vh`;
-            image.style.left = `${Math.random() * 90}vw`;
-            
-            // Duración aleatoria
-            const duration = 4 + Math.random() * 2;
-            image.style.setProperty('--duration', `${duration}s`);
-            
-            images.appendChild(image);
-            
-            setTimeout(() => {
-                image.remove();
-            }, duration * 1000);
-        }
+      if (contador >= 10) {
+        carta.classList.add("visible");
+        btnAbrir.style.display = "none";
+        sobre.style.display = "none";
 
-        function startParticleSystem() {
-            // Crear partículas iniciales
-            for (let i = 0; i < 20; i++) {
-                setTimeout(createParticle, i * 100);
-            }
-            
-            // Continuar creando partículas
-            setInterval(createParticle, 200);
-        }
-
-        function startImageSystem() {
-            // Crear imágenes iniciales
-            for (let i = 0; i < 10; i++) {
-                setTimeout(createImage, i * 200);
-            }
-            
-            // Continuar creando imágenes
-            setInterval(createImage, 800); // Crea una nueva imagen cada 800ms
-        }
-
-        document.getElementById("start").addEventListener("click", function () {
-            document.getElementById("title").classList.add("hidden");
-            document.getElementById("start").classList.add("hidden");
-
-            startParticleSystem();
-            startImageSystem();
-
-            // Mostrar mensajes después de un tiempo
-            setTimeout(() => {
-                document.getElementById("message").style.opacity = "1";
-                document.getElementById("sub-message").style.opacity = "1";
-            }, 2000);
-        });
-    </script>
-
+        // Activar decoraciones flotantes
+        setInterval(() => {
+          const decoraciones = ["heart", "star", "flower"];
+          const tipo = decoraciones[Math.floor(Math.random() * decoraciones.length)];
+          const elemento = document.createElement("div");
+          elemento.className = `decoracion-flotante ${tipo}`;
+          elemento.style.left = Math.random() * 100 + "%";
+          elemento.style.zIndex = Math.random() > 0.5 ? 0 : 1;
+          document.body.appendChild(elemento);
+          setTimeout(() => elemento.remove(), 6000);
+        }, 300);
+      }
+    });
+  </script>
 </body>
 </html>
